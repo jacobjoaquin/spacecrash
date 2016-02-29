@@ -40,7 +40,8 @@ class Player extends Being {
     velocity.mult(0.95);
  
     if (inputHandler.isPressed(Keys.FIRE)) {
-      Projectile p = new PlayerLaser(this, velocity.copy().normalize().mult(20));
+      //Projectile p = new PlayerLaser(this, velocity.copy().normalize().mult(20));
+      Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
       projectiles.add(p);
     }
   }

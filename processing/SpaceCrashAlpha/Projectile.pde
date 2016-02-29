@@ -14,7 +14,7 @@ abstract class Projectile extends DisplayableBase {
     angle = owner.angle;
     velocity = PVector.fromAngle(angle);
     velocity.mult(velocityMagnitude);
-    velocity.add(owner.velocity);
+    //velocity.add(owner.velocity);
   }
   
   Projectile(Being owner) {

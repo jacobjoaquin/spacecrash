@@ -25,7 +25,6 @@ void setup() {
 void draw() {
   background(0);
 
-
   inputHandler.update();
 
   level.update();
@@ -42,6 +41,7 @@ void draw() {
   popMatrix();
   pushMatrix();
   translate(width / 2.0, height / 2.0);
+  projectiles.display();
   player.display();
   popMatrix();
   vst.display();
