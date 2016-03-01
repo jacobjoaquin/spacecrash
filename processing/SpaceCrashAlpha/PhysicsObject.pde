@@ -6,7 +6,7 @@ abstract class PhysicsObject {
   PVector position;
   PVector lastPosition;
   float mass;
-  boolean immovable;
+  boolean immovable; // can this thing be moved by collisions?
   float drag;
   
   void update() {
