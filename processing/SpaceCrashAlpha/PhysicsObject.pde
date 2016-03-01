@@ -28,6 +28,45 @@ abstract class PhysicsObject {
       acceleration.set(0,0);
     }
   }
+  
+  PVector getPosition() {
+    return position;
+  }
+  void setPosition(int newX, int newY) {
+    position.set(newX, newY);
+  }
+  void setPosition(PVector newPosition) {
+    position = newPosition;
+  }
+  
+  PVector getLastPosition() {
+    return lastPosition;
+  }
+  void setLastPosition(int newX, int newY) {
+    lastPosition.set(newX, newY);
+  }
+  void setLastPosition(PVector newPosition) {
+    lastPosition = newPosition;
+  }
+  
+  PVector getVelocity() {
+    return velocity;
+  }
+  void setVelocity(int newX, int newY) {
+    velocity.set(newX, newY);
+  }
+  void setVelocity(PVector newVelocity) {
+    velocity = newVelocity;
+  }
+  
+  void setDrag(float newDrag) {
+    drag = newDrag;
+  }
+  
+  void applyForce(PVector force) {
+    PVector accToAdd = PVector.div(force, mass);
+    acceleration.add(accToAdd);
+  }
 }
 
 class PointMass extends PhysicsObject {
@@ -50,32 +89,5 @@ class PointMass extends PhysicsObject {
   }
   void setRadius(float newRadius) {
     radius = newRadius;
-  }
-  
-  void setPosition(int newX, int newY) {
-    position.set(newX, newY);
-  }
-  void setPosition(PVector newPosition) {
-    position = newPosition;
-  }
-  
-  void setVelocity(int newX, int newY) {
-    velocity.set(newX, newY);
-  }
-  void setVelocity(PVector newVelocity) {
-    velocity = newVelocity;
-  }
-  
-  void setDrag(float newDrag) {
-    drag = newDrag;
-  }
-  
-  void applyForce(PVector force) {
-    PVector accToAdd = PVector.div(force, mass);
-    acceleration.add(accToAdd);
-  }
-  
-  void update() {
-    super.update();
   }
 }
