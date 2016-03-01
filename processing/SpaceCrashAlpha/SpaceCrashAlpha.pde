@@ -25,28 +25,25 @@ void setup() {
 void draw() {
   background(0);
 
+  // Update world items
   inputHandler.update();
-
   level.update();
   player.update();
   projectiles.update();
 
+  // Display world
   pushMatrix();
   translate(width / 2.0, height / 2.0);
-  translate(-player.physicsModel.position.x, -player.physicsModel.position.y);
-  stroke(128);
-  rect(0, 0, 4000, 4000);
+  pushMatrix();
+  translate(-player.physicsModel.position.x, -player.physicsModel.position.y); 
   level.display();
-  projectiles.display();
-  
   popMatrix();
-  pushMatrix();
-  translate(width / 2.0, height / 2.0);
   projectiles.display();
   player.display();
   popMatrix();
+  
+  // Show on screen and handle input releases
   vst.display();
-
   inputHandler.clearReleased();
 }
 
