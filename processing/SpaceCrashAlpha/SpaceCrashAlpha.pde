@@ -16,7 +16,7 @@ void setup() {
   blendMode(ADD);
 
   player = new Player();
-  player.position.set(2000, 2000);
+  player.physicsModel.setPosition(2000, 2000);
   inputHandler = new InputHandler();
   level = new RandomLevel();
   projectiles = new Projectiles();
@@ -33,11 +33,12 @@ void draw() {
 
   pushMatrix();
   translate(width / 2.0, height / 2.0);
-  translate(-player.position.x, -player.position.y);
+  translate(-player.physicsModel.position.x, -player.physicsModel.position.y);
   stroke(128);
   rect(0, 0, 4000, 4000);
   level.display();
   projectiles.display();
+  
   popMatrix();
   pushMatrix();
   translate(width / 2.0, height / 2.0);

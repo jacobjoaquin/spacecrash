@@ -18,7 +18,7 @@ abstract class Projectile extends DisplayableBase {
   }
   
   Projectile(Being owner) {
-    this(owner, owner.position.copy());
+    this(owner, owner.physicsModel.position.copy());
   }
 
   

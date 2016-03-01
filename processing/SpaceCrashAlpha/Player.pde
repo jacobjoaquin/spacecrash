@@ -1,9 +1,7 @@
 abstract class Being extends DisplayableBase {
   float brightness = 128;
   float angle = -HALF_PI;
-  PVector acceleration;
-  PVector velocity;
-  PVector position;
+  PointMass physicsModel;
 }
 
 // Comment to get the PR started
@@ -14,14 +12,11 @@ class Player extends Being {
 
   Player() {
     super();
-    position = new PVector(0, 0);
-    velocity = new PVector(0, 0);
-    acceleration = new PVector(0, 0);
+    physicsModel = new PointMass(false);
+    physicsModel.setDrag(0.05);
   }
 
   void update() {
-    acceleration.set(0, 0);
-
     if (inputHandler.isPressed(Keys.ROTATE_LEFT)) {
       angle -= rotateAmount;
     }    
@@ -30,16 +25,14 @@ class Player extends Being {
     }
     if (inputHandler.isPressed(Keys.FORWARD)) {
       PVector a = PVector.fromAngle(angle);
-      acceleration.add(a);
+      physicsModel.applyForce(a);
     }
     if (inputHandler.isPressed(Keys.BACKWARD)) {
       PVector a = PVector.fromAngle(angle - PI);
-      acceleration.add(a);
+      physicsModel.applyForce(a);
     }
 
-    velocity.add(acceleration);
-    position.add(velocity);
-    velocity.mult(0.95);
+    physicsModel.update();
  
     if (inputHandler.isPressed(Keys.FIRE)) {
       //Projectile p = new PlayerLaser(this, velocity.copy().normalize().mult(20));
