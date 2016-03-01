@@ -5,6 +5,19 @@ class RandomLevel extends Level {
   Walls walls = new Walls();
 
   RandomLevel() {
+    pushStyle();
+    rectMode(CENTER);
+    for (int i = 0; i < 8; i++) {
+      float a = i / 8.0 * TAU;
+      pushMatrix();
+      translate(-200, -200);
+      rotate(a);
+      translate(200, 0);
+      walls.add(createWallRect(0, 0, 50, 50));
+      popMatrix();
+    }
+    popStyle();
+    
     int nWalls = 200;
     for (int i = 0; i < nWalls; i++) {
       PVector p0 = new PVector(random(4000), random(4000));

@@ -5,8 +5,8 @@ class Wall extends DisplayableBase {
   PVector p1;
 
   Wall(PVector p0, PVector p1) {
-    this.p0 = p0;
-    this.p1 = p1;
+    this.p0 = new PVector(screenX(p0.x, p0.y), screenY(p0.x, p0.y));
+    this.p1 = new PVector(screenX(p1.x, p1.y), screenY(p1.x, p1.y));
   }
   
   Wall(float x0, float y0, float x1, float y1) {
