@@ -31,8 +31,6 @@ class Player extends Being {
       PVector a = PVector.fromAngle(angle - PI);
       physicsModel.applyForce(a);
     }
-
-    physicsModel.update();
  
     if (inputHandler.isPressed(Keys.FIRE)) {
       Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));

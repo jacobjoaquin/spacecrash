@@ -3,6 +3,7 @@ Player player;
 InputHandler inputHandler;
 Level level;
 Projectiles projectiles;
+PhysicsObjects physicsObjects;
 
 void settings() {
   size(450, 550, P2D);
@@ -15,8 +16,11 @@ void setup() {
   vst.colorStroke = color(220, 220, 255);
   blendMode(ADD);
 
+  physicsObjects = new PhysicsObjects();
+
   player = new Player();
   player.physicsModel.setPosition(2000, 2000);
+  physicsObjects.add(player.physicsModel);
   inputHandler = new InputHandler();
   level = new RandomLevel();
   projectiles = new Projectiles();
@@ -30,6 +34,8 @@ void draw() {
   level.update();
   player.update();
   projectiles.update();
+  
+  physicsObjects.update();
 
   // Display world
   pushMatrix();

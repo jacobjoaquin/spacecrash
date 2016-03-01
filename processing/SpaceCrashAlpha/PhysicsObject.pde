@@ -1,5 +1,15 @@
 import java.util.Iterator;
 
+class PhysicsObjects<T extends PhysicsObject> extends ArrayList<T> {
+  void update() {
+    Iterator iter = this.iterator();
+    while (iter.hasNext()) {
+      T t = (T) iter.next();
+      t.update();
+    }
+  }
+}
+
 abstract class PhysicsObject {
   PVector acceleration;
   PVector velocity;
