@@ -1,11 +1,14 @@
+// Base class for all beings in game. This includes player and enemies.
 abstract class Being extends DisplayableBase {
   float brightness = 128;
   float angle = -HALF_PI;
+  float friction = 0.95;
   PVector acceleration;
   PVector velocity;
   PVector position;
 }
 
+// The player
 class Player extends Being {
   boolean showFlame = true;
   private float rotateAmount = 0.1;
@@ -37,16 +40,16 @@ class Player extends Being {
 
     velocity.add(acceleration);
     position.add(velocity);
-    velocity.mult(0.95);
+    velocity.mult(friction);
  
     if (inputHandler.isPressed(Keys.FIRE)) {
-      //Projectile p = new PlayerLaser(this, velocity.copy().normalize().mult(20));
       Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
       projectiles.add(p);
     }
   }
 
   void display() {
+    // TODO: Design a better looking ship
     pushMatrix();
     pushStyle();
     noFill();
@@ -63,10 +66,8 @@ class Player extends Being {
     }
     endShape(CLOSE);
 
-    //if (showFlame) {
-    //  v.mult(-1);
-    //  ellipse(20, 0, 10, 10);
-    //}
+    // TODO: Show show thrusters
+    
     popStyle();
     popMatrix();
   }

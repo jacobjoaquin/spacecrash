@@ -1,4 +1,3 @@
-
 class Wall extends DisplayableBase {
   float brightness = 128;
   PVector p0;
