@@ -1,4 +1,4 @@
-int levelIndex = 0;
+int levelIndex = 2;
 
 Vst vst;
 Player player;

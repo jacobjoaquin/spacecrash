@@ -79,7 +79,7 @@ class LevelGShapeTest extends Level {
 
     // Create GShape
     GShape gs = new GShape();
-    int nSides = 4;
+    int nSides = 5;
     gs.begin();    
     for (int i = 0; i < nSides; i++) {
       float a = i / (float) nSides * TAU + QUARTER_PI;
