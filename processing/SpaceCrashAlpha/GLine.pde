@@ -38,3 +38,44 @@ GLines grect(float x, float y, float w, float h) {
   popStyle();
   return glines;
 }
+
+class GShape {
+  ArrayList<PVector> vectors;
+  
+  GShape() {
+    vectors = new ArrayList<PVector>();
+  }
+  
+  void begin() {
+    // TODO: Check if begin has been called();
+    vectors.clear();
+  }
+  
+  void vertex(PVector p) {
+    vectors.add(p.copy());
+  }
+  
+  void end() {
+  }
+  
+  void end(boolean close) {
+    if (close) {
+      vertex(vectors.get(0));
+    }
+  }
+  
+  GLines get() {
+    GLines gl = new GLines();
+    int s = vectors.size();
+    if (s == 0) {
+      return gl;
+    }
+    PVector p0 = vectors.get(0);
+    for (int i = 1; i < s; i++) {
+      PVector p1 = vectors.get(i);
+      gl.add(gline(p0, p1));
+      p0 = p1;
+    }
+    return gl;
+  }
+}

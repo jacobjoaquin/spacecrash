@@ -52,8 +52,7 @@ class Player extends Being {
     beginShape();
     PVector v = PVector.fromAngle(a);
     v.mult(20);
-    rectMode(CENTER);
-    rect(v.x, v.y, 8, 8);
+    line(0, 0, v.x, v.y);
     for (int i = 0; i < 3; i++) {
       vertex(v.x, v.y);
       v.rotate(TAU / 3);
