@@ -33,9 +33,13 @@ class Player extends Being {
     }
  
     if (inputHandler.isPressed(Keys.FIRE)) {
-      Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
-      projectiles.add(p);
+      fire();
     }
+  }
+  
+  void fire() {
+    Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
+    projectiles.add(p);
   }
 
   void display() {
