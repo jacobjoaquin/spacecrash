@@ -41,6 +41,11 @@ abstract class Projectile extends DisplayableBase {
     line(lastPosition.x, lastPosition.y, position.x, position.y);
     popStyle();
   }
+  
+  void complete() {
+    super.complete();
+    // Code to remove PhysicsObject
+  }
 }
 
 // Player laser

@@ -1,16 +1,13 @@
 
-class Wall extends DisplayableBase {
+class Wall extends GLine {
   float brightness = 128;
-  PVector p0;
-  PVector p1;
 
   Wall(PVector p0, PVector p1) {
-    this.p0 = new PVector(screenX(p0.x, p0.y), screenY(p0.x, p0.y));
-    this.p1 = new PVector(screenX(p1.x, p1.y), screenY(p1.x, p1.y));
+    super(p0, p1);
   }
   
   Wall(float x0, float y0, float x1, float y1) {
-    this(new PVector(x0, y0), new PVector(x1, y1));
+    super(new PVector(x0, y0), new PVector(x1, y1));
   }
 
   void display() {
@@ -26,7 +23,6 @@ class Walls extends DisplayableList<Wall> {
     this.addAll(w);
   }
 }
-
 
 Walls createWallRect(float x, float y, float w, float h) {
   Walls walls = new Walls();
