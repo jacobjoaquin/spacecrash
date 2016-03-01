@@ -10,7 +10,9 @@ abstract class PhysicsObject {
   float drag;
 }
 
-class PointMass extends PhysicsObject {  
+class PointMass extends PhysicsObject {
+  float radius;
+  
   PointMass(boolean isImmovable) {   
     acceleration = new PVector(0,0);
     velocity = new PVector(0,0);
@@ -19,6 +21,15 @@ class PointMass extends PhysicsObject {
     mass = 1.0;
     immovable = isImmovable;
     drag = 0.05;
+    
+    radius = 1.0;
+  }
+  
+  float getRadius() {
+    return radius;
+  }
+  void setRadius(float newRadius) {
+    radius = newRadius;
   }
   
   void setPosition(int newX, int newY) {
