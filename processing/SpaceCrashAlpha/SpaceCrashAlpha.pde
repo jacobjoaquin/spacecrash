@@ -1,9 +1,12 @@
+int levelIndex = 0;
+
 Vst vst;
 Player player;
 InputHandler inputHandler;
 Level level;
 Projectiles projectiles;
 PhysicsObjects physicsObjects;
+LevelList levelList;
 
 void settings() {
   size(450, 550, P2D);
@@ -22,8 +25,12 @@ void setup() {
   player.physicsModel.setPosition(0, 0);
   physicsObjects.add(player.physicsModel);
   inputHandler = new InputHandler();
-  level = new RandomLevel();
   projectiles = new Projectiles();
+  levelList = new LevelList();
+  levelList.add(new LevelLineTest());
+  levelList.add(new LevelRectangleTest());
+  levelList.add(new LevelGShapeTest());
+  level = levelList.get(levelIndex);
 }
 
 void draw() {
