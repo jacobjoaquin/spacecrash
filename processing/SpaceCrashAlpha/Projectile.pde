@@ -7,38 +7,36 @@ abstract class Projectile extends DisplayableBase {
   float velocityMagnitude = 10;
   float brightness = 255;
   int framesLeft = 100;
-  PVector position;
-  PVector lastPosition;
-  float angle;
-  PVector velocity;
   Being owner;
+  PointMass physicsModel;
   
   Projectile(Being owner, PVector position) {
-    this.position = position.copy();
-    lastPosition = this.position.copy();
-    angle = owner.angle;
-    velocity = PVector.fromAngle(angle);
-    velocity.mult(velocityMagnitude);
+    physicsModel = new PointMass(false);
+    physicsModel.setDrag(0.0);
+    physicsModel.setPosition(position.copy());
+    physicsModel.setLastPosition(position.copy());
+    float angle = owner.angle;
+    PVector velocity = PVector.fromAngle(angle).mult(velocityMagnitude);
+    physicsModel.setVelocity(velocity);
+    
+    physicsObjects.add(physicsModel);
     // TODO: Add partial velocity of owner
   }
   
   Projectile(Being owner) {
-    this(owner, owner.position.copy());
+    this(owner, owner.physicsModel.position.copy());
   }
   
   void update() {
     if (--framesLeft == 0) {
       complete();
     }
-    
-    lastPosition = position.copy();
-    position.add(velocity);
   }
   
   void display() {
     pushStyle();
     stroke(brightness);
-    line(lastPosition.x, lastPosition.y, position.x, position.y);
+    line(physicsModel.getLastPosition().x, physicsModel.getLastPosition().y, physicsModel.getPosition().x, physicsModel.getPosition().y);
     popStyle();
   }
 }
