@@ -2,10 +2,7 @@
 abstract class Being extends DisplayableBase {
   float brightness = 128;
   float angle = -HALF_PI;
-  float friction = 0.95;
-  PVector acceleration;
-  PVector velocity;
-  PVector position;
+  PointMass physicsModel;
 }
 
 // The player
@@ -15,14 +12,11 @@ class Player extends Being {
 
   Player() {
     super();
-    position = new PVector(0, 0);
-    velocity = new PVector(0, 0);
-    acceleration = new PVector(0, 0);
+    physicsModel = new PointMass(false);
+    physicsModel.setDrag(0.05);
   }
 
   void update() {
-    acceleration.set(0, 0);
-
     if (inputHandler.isPressed(Keys.ROTATE_LEFT)) {
       angle -= rotateAmount;
     }    
@@ -31,21 +25,21 @@ class Player extends Being {
     }
     if (inputHandler.isPressed(Keys.FORWARD)) {
       PVector a = PVector.fromAngle(angle);
-      acceleration.add(a);
+      physicsModel.applyForce(a);
     }
     if (inputHandler.isPressed(Keys.BACKWARD)) {
       PVector a = PVector.fromAngle(angle - PI);
-      acceleration.add(a);
+      physicsModel.applyForce(a);
     }
-
-    velocity.add(acceleration);
-    position.add(velocity);
-    velocity.mult(friction);
  
     if (inputHandler.isPressed(Keys.FIRE)) {
-      Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
-      projectiles.add(p);
+      fire();
     }
+  }
+  
+  void fire() {
+    Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
+    projectiles.add(p);
   }
 
   void display() {
