@@ -8,6 +8,16 @@ abstract class PhysicsObject {
   float mass;
   boolean immovable;
   float drag;
+  
+  void update() {
+    if (!immovable) {
+      lastPosition = position.copy();
+      velocity.add(acceleration);
+      velocity.mult(1.0 - drag);
+      position.add(velocity);
+      acceleration.set(0,0);
+    }
+  }
 }
 
 class PointMass extends PhysicsObject {
@@ -56,12 +66,6 @@ class PointMass extends PhysicsObject {
   }
   
   void update() {
-    if (!immovable) {
-      lastPosition = position.copy();
-      velocity.add(acceleration);
-      velocity.mult(1.0 - drag);
-      position.add(velocity);
-      acceleration.set(0,0);
-    }
+    super.update();
   }
 }
