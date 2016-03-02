@@ -19,6 +19,10 @@ abstract class PhysicsObject {
   protected boolean immovable; // can this thing be moved by collisions?
   protected float drag;
   
+  PhysicsObject() {
+    physicsObjects.add(this);
+  }
+  
   void update() {
     if (!immovable) {
       lastPosition = position.copy();
@@ -72,7 +76,8 @@ abstract class PhysicsObject {
 class PointMass extends PhysicsObject {
   float radius;
   
-  PointMass(boolean isImmovable) {   
+  PointMass(boolean isImmovable) {
+    super(); 
     acceleration = new PVector(0,0);
     velocity = new PVector(0,0);
     position = new PVector(0,0);
@@ -80,7 +85,6 @@ class PointMass extends PhysicsObject {
     mass = 1.0;
     immovable = isImmovable;
     drag = 0.05;
-    
     radius = 1.0;
   }
   
@@ -97,9 +101,10 @@ class PhysicsFixedLine extends PhysicsObject {
   private PVector endPoint;
     
   PhysicsFixedLine(PVector myStartPoint, PVector myEndPoint) {
+    super();
     startPoint = myStartPoint;
     endPoint = myEndPoint;
-     
+    
     acceleration = new PVector(0,0);
     velocity = new PVector(0,0);
     position = new PVector(0,0);

@@ -20,7 +20,6 @@ void setup() {
 
   player = new Player();
   player.physicsModel.setPosition(2000, 2000);
-  physicsObjects.add(player.physicsModel);
   inputHandler = new InputHandler();
   level = new RandomLevel();
   projectiles = new Projectiles();

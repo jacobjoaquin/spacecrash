@@ -19,7 +19,6 @@ abstract class Projectile extends DisplayableBase {
     PVector velocity = PVector.fromAngle(angle).mult(velocityMagnitude);
     physicsModel.setVelocity(velocity);
     
-    physicsObjects.add(physicsModel);
     // TODO: Add partial velocity of owner
   }
   
