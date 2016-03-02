@@ -11,13 +11,13 @@ class PhysicsObjects<T extends PhysicsObject> extends ArrayList<T> {
 }
 
 abstract class PhysicsObject {
-  PVector acceleration;
-  PVector velocity;
-  PVector position;
-  PVector lastPosition;
-  float mass;
-  boolean immovable; // can this thing be moved by collisions?
-  float drag;
+  protected PVector acceleration;
+  protected PVector velocity;
+  protected PVector position;
+  protected PVector lastPosition;
+  protected float mass;
+  protected boolean immovable; // can this thing be moved by collisions?
+  protected float drag;
   
   void update() {
     if (!immovable) {
