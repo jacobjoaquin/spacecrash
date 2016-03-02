@@ -9,16 +9,21 @@ class PhysicsObjects<T extends PhysicsObject> extends ArrayList<T> {
     }
   }
   
-  void checkCollisions(CollisionDetector collisionDetector) {
-    for (T current : this) {
-      for (T other : this) {
-        collisionDetector.checkCollision(current, other);
+  void checkCollisions() {
+    for (Collision current : this) {
+      for (Collision other : this) {
+        current.checkCollision(other);
       }
     }
   }
 }
 
-abstract class PhysicsObject {
+interface Collision {
+  void checkCollision(PointMass pm);
+  void checkCollision(PhysicsFixedLine fl);
+}
+
+abstract class PhysicsObject implements Collision {
   protected PVector acceleration;
   protected PVector velocity;
   protected PVector position;
@@ -105,6 +110,16 @@ class PointMass extends PhysicsObject {
   
   void collidedWith(PhysicsFixedLine fl) {
     velocity.set(0,1);
+  }
+  float distance(PVector a, PVector b) {
+    return sqrt(pow((b.y - a.y), 2.0) + pow((b.x - a.x), 2.0));
+  }
+  void checkCollision(PointMass p) {
+  }
+  void checkCollision(PhysicsFixedLine fl) {
+    if (distance(position, fl.getPosition()) < 10) {
+      collidedWith(fl);
+    }
   }
 }
 
