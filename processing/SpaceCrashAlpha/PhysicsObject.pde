@@ -91,3 +91,28 @@ class PointMass extends PhysicsObject {
     radius = newRadius;
   }
 }
+
+class PhysicsFixedLine extends PhysicsObject {
+  private PVector startPoint;
+  private PVector endPoint;
+    
+  PhysicsFixedLine(PVector myStartPoint, PVector myEndPoint) {
+    startPoint = myStartPoint;
+    endPoint = myEndPoint;
+     
+    acceleration = new PVector(0,0);
+    velocity = new PVector(0,0);
+    position = new PVector(0,0);
+    lastPosition = new PVector(0,0);
+    mass = 1.0;
+    immovable = true;
+    drag = 0.0;
+  }
+  
+  PVector getStartPoint() {
+    return startPoint;
+  }
+  PVector getEndPoint() {
+    return endPoint;
+  }
+}

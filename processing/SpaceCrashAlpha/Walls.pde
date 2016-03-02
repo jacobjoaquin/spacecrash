@@ -3,10 +3,12 @@ class Wall extends DisplayableBase {
   float brightness = 128;
   PVector p0;
   PVector p1;
+  PhysicsFixedLine physicsModel;
 
   Wall(PVector p0, PVector p1) {
     this.p0 = p0;
     this.p1 = p1;
+    physicsModel = new PhysicsFixedLine(p0, p1);
   }
   
   Wall(float x0, float y0, float x1, float y1) {
