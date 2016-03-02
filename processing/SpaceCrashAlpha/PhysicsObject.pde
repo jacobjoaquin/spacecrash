@@ -8,6 +8,14 @@ class PhysicsObjects<T extends PhysicsObject> extends ArrayList<T> {
       t.update();
     }
   }
+  
+  void checkCollisions(CollisionDetector collisionDetector) {
+    for (T current : this) {
+      for (T other : this) {
+        collisionDetector.checkCollision(current, other);
+      }
+    }
+  }
 }
 
 abstract class PhysicsObject {
@@ -93,6 +101,10 @@ class PointMass extends PhysicsObject {
   }
   void setRadius(float newRadius) {
     radius = newRadius;
+  }
+  
+  void collidedWith(PhysicsFixedLine fl) {
+    velocity.set(0,1);
   }
 }
 

@@ -4,6 +4,7 @@ InputHandler inputHandler;
 Level level;
 Projectiles projectiles;
 PhysicsObjects physicsObjects;
+CollisionDetector collisionDetector;
 
 void settings() {
   size(450, 550, P2D);
@@ -23,6 +24,7 @@ void setup() {
   inputHandler = new InputHandler();
   level = new RandomLevel();
   projectiles = new Projectiles();
+  collisionDetector = new CollisionDetector();
 }
 
 void draw() {
@@ -34,6 +36,7 @@ void draw() {
   player.update();
   projectiles.update();
   
+  physicsObjects.checkCollisions(collisionDetector);
   physicsObjects.update();
 
   // Display world
