@@ -1,5 +1,6 @@
 Vst vst;
 Player player;
+Enemies enemy;
 InputHandler inputHandler;
 Level level;
 Projectiles projectiles;
@@ -19,8 +20,11 @@ void setup() {
   physicsObjects = new PhysicsObjects();
 
   player = new Player();
+  enemy = new Enemies();
   player.physicsModel.setPosition(2000, 2000);
   physicsObjects.add(player.physicsModel);
+  // enemy
+  physicsObjects.add(enemy.physicsModel);
   inputHandler = new InputHandler();
   level = new RandomLevel();
   projectiles = new Projectiles();
@@ -34,11 +38,15 @@ void draw() {
   level.update();
   player.update();
   projectiles.update();
-  
+  enemy.update();
+
   physicsObjects.update();
 
   // Display world
   pushMatrix();
+  if(frameCount % 30 == 0) {
+  enemy.display();
+  }
   translate(width / 2.0, height / 2.0);
   pushMatrix();
   translate(-player.physicsModel.position.x, -player.physicsModel.position.y); 
@@ -46,8 +54,9 @@ void draw() {
   popMatrix();
   projectiles.display();
   player.display();
-  popMatrix();
   
+  popMatrix();
+
   // Show on screen and handle input releases
   vst.display();
   inputHandler.clearReleased();
