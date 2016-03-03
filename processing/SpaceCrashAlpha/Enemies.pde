@@ -6,7 +6,8 @@ class Enemies extends Being {
     physicsModel = new PointMass(false);
     physicsModel.setDrag(0.5);
     physicsModel.setVelocity(2, 2);
-    physicsModel.setPosition(50 + frameCount, 50 + frameCount);
+    //physicsModel.setPosition(50 + frameCount, 50 + frameCount);
+    physicsModel.setPosition(2000, 2000);
   }
   
  void update() {

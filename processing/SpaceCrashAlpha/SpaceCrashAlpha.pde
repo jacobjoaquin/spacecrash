@@ -44,12 +44,10 @@ void draw() {
 
   // Display world
   pushMatrix();
-  if(frameCount % 30 == 0) {
-  enemy.display();
-  }
   translate(width / 2.0, height / 2.0);
   pushMatrix();
   translate(-player.physicsModel.position.x, -player.physicsModel.position.y); 
+  enemy.display();
   level.display();
   popMatrix();
   projectiles.display();
