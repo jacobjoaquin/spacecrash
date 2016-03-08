@@ -13,7 +13,7 @@ class Player extends Being {
   Player() {
     super();
     physicsModel = new PointMass(false);
-    physicsModel.setDrag(0.08);
+    physicsModel.setDrag(0.05);
   }
 
   void update() {
@@ -31,12 +31,12 @@ class Player extends Being {
       PVector a = PVector.fromAngle(angle - PI);
       physicsModel.applyForce(a);
     }
-
+ 
     if (inputHandler.isPressed(Keys.FIRE)) {
       fire();
     }
   }
-
+  
   void fire() {
     Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
     projectiles.add(p);
@@ -60,7 +60,7 @@ class Player extends Being {
     endShape(CLOSE);
 
     // TODO: Show show thrusters
-
+    
     popStyle();
     popMatrix();
   }

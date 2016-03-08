@@ -2,7 +2,6 @@ int levelIndex = 3;
 
 Vst vst;
 Player player;
-Enemies enemy;
 InputHandler inputHandler;
 Level level;
 Projectiles projectiles;
@@ -24,9 +23,7 @@ void setup() {
 
   player = new Player();
   player.physicsModel.setPosition(0, 0);
-  enemy = new Enemies();
   physicsObjects.add(player.physicsModel);
-  physicsObjects.add(enemy.physicsModel);
   inputHandler = new InputHandler();
   projectiles = new Projectiles();
   levelList = new LevelList();
@@ -45,15 +42,11 @@ void draw() {
   level.update();
   player.update();
   projectiles.update();
-  enemy.update();
-
+  
   physicsObjects.update();
 
   // Display world
   pushMatrix();
-  if(frameCount % 30 == 0) {
-  enemy.display();
-  }
   translate(width / 2.0, height / 2.0);
   pushMatrix();
   translate(-player.physicsModel.position.x, -player.physicsModel.position.y); 
@@ -61,9 +54,8 @@ void draw() {
   popMatrix();
   projectiles.display();
   player.display();
-  
   popMatrix();
-
+  
   // Show on screen and handle input releases
   vst.display();
   inputHandler.clearReleased();
