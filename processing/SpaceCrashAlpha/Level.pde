@@ -79,6 +79,15 @@ class LevelGShapeTest extends Level {
 
 class LevelDynamicTest extends Level {
   LevelDynamicTest() {
-    barrierList.add(new DynamicWall(gline(new PVector(0, 0), new PVector(100, 0))));
+    pushStyle();
+    rectMode(CENTER);
+    int nSides = 5;
+    for (int i = 0; i < nSides; i++) {
+      pushMatrix();
+      rotate(i / (float) nSides * TAU);
+      barrierList.add(new DynamicWallList(grect(150, 0, 50, 50)));
+      popMatrix();
+    }
+    popStyle();
   }
 }

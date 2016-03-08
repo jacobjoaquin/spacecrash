@@ -30,6 +30,9 @@ class Wall extends Barrier {
   private GLine gl;
   float brightness = 128;
 
+  Wall() {
+  }
+
   Wall(GLine gl) {
    this.gl = gl;
   }
@@ -42,7 +45,7 @@ class Wall extends Barrier {
   }
 }
 
-class WallList extends BarrierList {
+class WallList<T> extends BarrierList {
   WallList() {
   }
 
@@ -71,10 +74,41 @@ class DynamicWall extends Wall {
   float scaleX = 1;
   float scaleY = 1;
 
+  DynamicWall() {
+  }
+
   DynamicWall(GLine gl) {
     super(gl);
   }
   
+ void update() {
+    angle += 0.01;
+  }
+
+  void display() {
+    pushMatrix();
+    translate(position.x, position.y);
+    rotate(angle);
+    translate(scaleX, scaleY);
+    super.display();
+    popMatrix();
+  }
+}
+
+class DynamicWallList extends WallList<DynamicWall> {
+  PVector position = new PVector(0, 0);
+  float angle = 0;
+  float scaleX = 1;
+  float scaleY = 1;
+  
+  DynamicWallList() {
+    super();
+  }
+
+  DynamicWallList(GLines glines) {
+    super(glines);
+  }
+
  void update() {
     angle += 0.01;
   }
