@@ -1,4 +1,4 @@
-int levelIndex = 2;
+int levelIndex = 3;
 
 Vst vst;
 Player player;
@@ -30,6 +30,7 @@ void setup() {
   levelList.add(new LevelLineTest());
   levelList.add(new LevelRectangleTest());
   levelList.add(new LevelGShapeTest());
+  levelList.add(new LevelStructureTest());
   level = levelList.get(levelIndex);
 }
 
