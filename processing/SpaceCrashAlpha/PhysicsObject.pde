@@ -8,16 +8,33 @@ class PhysicsObjects<T extends PhysicsObject> extends ArrayList<T> {
       t.update();
     }
   }
+  
+  void checkCollisions() {
+    // for (Collision current : this) {
+    //   for (Collision other : this) {
+    //     current.checkCollision(other);
+    //   }
+    // }
+  }
 }
 
-abstract class PhysicsObject {
-  PVector acceleration;
-  PVector velocity;
-  PVector position;
-  PVector lastPosition;
-  float mass;
-  boolean immovable; // can this thing be moved by collisions?
-  float drag;
+interface Collision {
+  void checkCollision(PointMass pm);
+  void checkCollision(PhysicsFixedLine fl);
+}
+
+abstract class PhysicsObject implements Collision {
+  protected PVector acceleration;
+  protected PVector velocity;
+  protected PVector position;
+  protected PVector lastPosition;
+  protected float mass;
+  protected boolean immovable; // can this thing be moved by collisions?
+  protected float drag;
+  
+  PhysicsObject() {
+    physicsObjects.add(this);
+  }
   
   void update() {
     if (!immovable) {
@@ -72,7 +89,8 @@ abstract class PhysicsObject {
 class PointMass extends PhysicsObject {
   float radius;
   
-  PointMass(boolean isImmovable) {   
+  PointMass(boolean isImmovable) {
+    super(); 
     acceleration = new PVector(0,0);
     velocity = new PVector(0,0);
     position = new PVector(0,0);
@@ -80,7 +98,6 @@ class PointMass extends PhysicsObject {
     mass = 1.0;
     immovable = isImmovable;
     drag = 0.05;
-    
     radius = 1.0;
   }
   
@@ -89,5 +106,48 @@ class PointMass extends PhysicsObject {
   }
   void setRadius(float newRadius) {
     radius = newRadius;
+  }
+  
+  void collidedWith(PhysicsFixedLine fl) {
+    velocity.set(0,1);
+  }
+  float distance(PVector a, PVector b) {
+    return sqrt(pow((b.y - a.y), 2.0) + pow((b.x - a.x), 2.0));
+  }
+  void checkCollision(PointMass p) {
+  }
+  void checkCollision(PhysicsFixedLine fl) {
+    if (distance(position, fl.getPosition()) < 10) {
+      collidedWith(fl);
+    }
+  }
+}
+
+class PhysicsFixedLine extends PhysicsObject {
+  private PVector startPoint;
+  private PVector endPoint;
+    
+  PhysicsFixedLine(PVector myStartPoint, PVector myEndPoint) {
+    super();
+    startPoint = myStartPoint;
+    endPoint = myEndPoint;
+    
+    acceleration = new PVector(0,0);
+    velocity = new PVector(0,0);
+    position = new PVector(0,0);
+    lastPosition = new PVector(0,0);
+    mass = 1.0;
+    immovable = true;
+    drag = 0.0;
+  }
+  
+  PVector getStartPoint() {
+    return startPoint;
+  }
+  PVector getEndPoint() {
+    return endPoint;
+  }
+  void checkCollision(PhysicsFixedLine foo) {
+    
   }
 }

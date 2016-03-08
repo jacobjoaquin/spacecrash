@@ -43,6 +43,7 @@ void draw() {
   player.update();
   projectiles.update();
   
+  physicsObjects.checkCollisions();
   physicsObjects.update();
 
   // Display world
