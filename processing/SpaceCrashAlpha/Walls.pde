@@ -30,7 +30,6 @@ class WallList extends DisplayableList<Wall> {
   void add(WallList WallList) {
     this.addAll(WallList);
   }
-
 }
 
 

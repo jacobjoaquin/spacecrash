@@ -2,36 +2,11 @@ class LevelList extends DisplayableList<Level> {
 }
 
 abstract class Level extends DisplayableBase {
-  // Structures
+  // Player
   // Enemies
-}
-
-class LevelStructureTest extends Level {
+  // Structures
   WallList WallList = new WallList();
-  WallList wallTest = new WallList();
-
-  LevelStructureTest() {
-    GShape gs = new GShape();
-    int nSides = 5;
-    gs.begin();    
-    for (int i = 0; i < nSides; i++) {
-      float a = i / (float) nSides * TAU + QUARTER_PI;
-      PVector p = PVector.fromAngle(a).mult(100);
-      gs.vertex(p);
-    }
-    gs.end(false);
-
-    wallTest.add(gs.get());
-
-    WallList.add(wallTest);
-
-    // Border around whole level
-    pushStyle();
-    rectMode(CENTER);
-    WallList.add(grect(0, 0, 4000, 4000));
-    popStyle();
-  }
-
+  
   void update() {
     WallList.update();
   }
@@ -41,10 +16,7 @@ class LevelStructureTest extends Level {
   }
 }
 
-
 class LevelLineTest extends Level {
-  WallList WallList = new WallList();
-
   LevelLineTest() {
     player.angle = 0;
     // Randomly generate WallList
@@ -64,18 +36,9 @@ class LevelLineTest extends Level {
     popStyle();
   }
 
-  void update() {
-    WallList.update();
-  }
-
-  void display() {
-    WallList.display();
-  }
 }
 
 class LevelRectangleTest extends Level {
-  WallList WallList = new WallList();
-
   LevelRectangleTest() {
     // Rectangle Pattern    
     pushStyle();
@@ -99,19 +62,9 @@ class LevelRectangleTest extends Level {
     WallList.add(grect(0, 0, 2000, 2000));
     popStyle();
   }
-
-  void update() {
-    WallList.update();
-  }
-
-  void display() {
-    WallList.display();
-  }
 }
 
 class LevelGShapeTest extends Level {
-  WallList WallList = new WallList();
-
   LevelGShapeTest() {
     player.angle = 0;
 
@@ -142,12 +95,30 @@ class LevelGShapeTest extends Level {
     WallList.add(grect(0, 0, 2400, 2400));
     popStyle();
   }
+}
 
-  void update() {
-    WallList.update();
-  }
+class LevelStructureTest extends Level {
+  WallList wallTest = new WallList();
 
-  void display() {
-    WallList.display();
+  LevelStructureTest() {
+    GShape gs = new GShape();
+    int nSides = 5;
+    gs.begin();    
+    for (int i = 0; i < nSides; i++) {
+      float a = i / (float) nSides * TAU + QUARTER_PI;
+      PVector p = PVector.fromAngle(a).mult(100);
+      gs.vertex(p);
+    }
+    gs.end(false);
+
+    wallTest.add(gs.get());
+
+    WallList.add(wallTest);
+
+    // Border around whole level
+    pushStyle();
+    rectMode(CENTER);
+    WallList.add(grect(0, 0, 4000, 4000));
+    popStyle();
   }
 }
