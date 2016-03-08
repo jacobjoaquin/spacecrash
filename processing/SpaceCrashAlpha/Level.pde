@@ -4,7 +4,6 @@ class LevelList extends DisplayableList<Level> {
 abstract class Level extends DisplayableBase {
   // Player
   // Enemies
-  // Structures
   BarrierList barrierList = new BarrierList();
 
   void update() {
