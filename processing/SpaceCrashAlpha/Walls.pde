@@ -1,5 +1,33 @@
-class Wall extends DisplayableBase {
+/*
+Thoughts on creating barriers / walls:
+
+A container that contains:
+  Barriers, ie WallList
+  Lists of Barriers, ie WallList
+
+What is a barrier?
+  A static line
+  A list of multiple static lines
+  A dynamic line
+  A list of multiple dynamic lines
+  A list of multiple static and dynamic lines
+*/
+
+class BarrierList<Barrier> extends DisplayableList {  
+}
+
+abstract class Barrier extends DisplayableBase {
   GLine gl;
+
+  Barrier() {
+  }
+
+  Barrier(Barrier b) {
+  }
+}
+
+class Wall extends Barrier {
+  private GLine gl;
   float brightness = 128;
 
   Wall(GLine gl) {
@@ -14,7 +42,16 @@ class Wall extends DisplayableBase {
   }
 }
 
-class WallList extends DisplayableList<Wall> {
+class WallList extends BarrierList {
+  WallList() {
+  }
+
+  WallList(GLines glines) {
+    for (GLine gl : glines) {
+      add(gl);
+    }
+  }
+
   void add(GLine gl) {
     add(new Wall(gl));
   }
@@ -26,24 +63,28 @@ class WallList extends DisplayableList<Wall> {
     }
     add(wl);
   }
-  
-  void add(WallList WallList) {
-    this.addAll(WallList);
-  }
 }
 
+class DynamicWall extends Wall {
+  PVector position = new PVector(0, 0);
+  float angle = 0;
+  float scaleX = 1;
+  float scaleY = 1;
 
-class Barrier {
-/*
-A container that contains:
-  Barriers, ie WallList
-  Lists of Barriers, ie WallList
+  DynamicWall(GLine gl) {
+    super(gl);
+  }
+  
+ void update() {
+    angle += 0.01;
+  }
 
-What is a barrier?
-  A static line
-  A list of multiple static lines
-  A dynamic line
-  A list of multiple dynamic lines
-  A list of multiple static and dynamic lines
-*/
+  void display() {
+    pushMatrix();
+    translate(position.x, position.y);
+    rotate(angle);
+    translate(scaleX, scaleY);
+    super.display();
+    popMatrix();
+  }
 }

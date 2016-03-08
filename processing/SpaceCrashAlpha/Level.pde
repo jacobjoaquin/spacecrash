@@ -5,20 +5,19 @@ abstract class Level extends DisplayableBase {
   // Player
   // Enemies
   // Structures
-  WallList WallList = new WallList();
-  
+  BarrierList barrierList = new BarrierList();
+
   void update() {
-    WallList.update();
+    barrierList.update();
   }
 
   void display() {
-    WallList.display();
+    barrierList.display();
   }
 }
 
 class LevelLineTest extends Level {
   LevelLineTest() {
-    player.angle = 0;
     // Randomly generate WallList
     int nWallList = 200;
     for (int i = 0; i < nWallList; i++) {
@@ -26,16 +25,9 @@ class LevelLineTest extends Level {
       PVector p1 = PVector.fromAngle(random(TAU));
       p1.mult(random(25, 300));
       p1.add(p0);
-      WallList.add(gline(p0, p1));
+      barrierList.add(new Wall(gline(p0, p1)));
     }
-
-    // Border around whole level
-    pushStyle();
-    rectMode(CENTER);
-    WallList.add(grect(0, 0, 4000, 4000));
-    popStyle();
   }
-
 }
 
 class LevelRectangleTest extends Level {
@@ -50,16 +42,10 @@ class LevelRectangleTest extends Level {
         rotate(a);
         translate((i - 2) * 50, 0);
         scale(map(i, 4, 16, 1, 3));
-        WallList.add(grect(0, 0, 50, 50));
+        barrierList.add(new WallList(grect(0, 0, 50, 50)));
         popMatrix();
       }
     }
-    popStyle();
-
-    // Border around whole level
-    pushStyle();
-    rectMode(CENTER);
-    WallList.add(grect(0, 0, 2000, 2000));
     popStyle();
   }
 }
@@ -85,40 +71,14 @@ class LevelGShapeTest extends Level {
       float a = (i * 2) / (float) nSides * TAU;
       rotate(a);
       scale(1 + i * 2);
-      WallList.add(gs.get());
+      barrierList.add(new WallList(gs.get()));
       popMatrix();
     }
-
-    // Border around whole level
-    pushStyle();
-    rectMode(CENTER);
-    WallList.add(grect(0, 0, 2400, 2400));
-    popStyle();
   }
 }
 
-class LevelStructureTest extends Level {
-  WallList wallTest = new WallList();
-
-  LevelStructureTest() {
-    GShape gs = new GShape();
-    int nSides = 5;
-    gs.begin();    
-    for (int i = 0; i < nSides; i++) {
-      float a = i / (float) nSides * TAU + QUARTER_PI;
-      PVector p = PVector.fromAngle(a).mult(100);
-      gs.vertex(p);
-    }
-    gs.end(false);
-
-    wallTest.add(gs.get());
-
-    WallList.add(wallTest);
-
-    // Border around whole level
-    pushStyle();
-    rectMode(CENTER);
-    WallList.add(grect(0, 0, 4000, 4000));
-    popStyle();
+class LevelDynamicTest extends Level {
+  LevelDynamicTest() {
+    barrierList.add(new DynamicWall(gline(new PVector(0, 0), new PVector(100, 0))));
   }
 }
