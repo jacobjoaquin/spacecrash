@@ -27,18 +27,14 @@ abstract class Barrier extends DisplayableBase {
 }
 
 class Wall extends Barrier {
-  PhysicsFixedLine physicsModel;
   private GLine gl;
   float brightness = 128;
+
   Wall() {
   }
-  
+
   Wall(GLine gl) {
    this.gl = gl;
-  }
-
-  void init() {
-    physicsModel = new PhysicsFixedLine(p0, p1);
   }
 
   void display() {

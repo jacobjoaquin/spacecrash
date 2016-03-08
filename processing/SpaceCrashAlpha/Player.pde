@@ -2,7 +2,7 @@
 abstract class Being extends DisplayableBase {
   float brightness = 128;
   float angle = -HALF_PI;
-  PhysicsObject physicsModel;
+  PointMass physicsModel;
 }
 
 // The player
