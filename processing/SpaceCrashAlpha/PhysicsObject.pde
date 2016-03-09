@@ -111,13 +111,12 @@ class PointMass extends PhysicsObject {
   void collidedWith(PhysicsFixedLine fl) {
     velocity.set(0,1);
   }
-  float distance(PVector a, PVector b) {
-    return sqrt(pow((b.y - a.y), 2.0) + pow((b.x - a.x), 2.0));
-  }
+
   void checkCollision(PointMass p) {
   }
+  
   void checkCollision(PhysicsFixedLine fl) {
-    if (distance(position, fl.getPosition()) < 10) {
+    if (position.dist(fl.getPosition()) < 10) {
       collidedWith(fl);
     }
   }
@@ -147,7 +146,14 @@ class PhysicsFixedLine extends PhysicsObject {
   PVector getEndPoint() {
     return endPoint;
   }
-  void checkCollision(PhysicsFixedLine foo) {
-    
+  void collidedWith(PhysicsFixedLine fl) {
+    velocity.set(0,1);
+  }
+  void checkCollision(PointMass p) {
+  }
+  void checkCollision(PhysicsFixedLine fl) {
+    if (position.dist(fl.getPosition()) < 10) {
+      // collidedWith(fl);
+    }
   }
 }

@@ -11,7 +11,6 @@ class Player extends Being {
   private float rotateAmount = 0.1;
 
   Player() {
-    super();
     physicsModel = new PointMass(false);
     physicsModel.setDrag(0.05);
   }

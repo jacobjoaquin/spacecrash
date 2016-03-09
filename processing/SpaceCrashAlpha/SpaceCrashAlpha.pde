@@ -1,4 +1,4 @@
-int levelIndex = 3;
+int levelIndex = 2;
 
 Vst vst;
 Player player;
@@ -42,9 +42,14 @@ void draw() {
   level.update();
   player.update();
   projectiles.update();
-  
-  physicsObjects.checkCollisions();
+
+  // Handle physicsObjects  
+  // physicsObjects.checkCollisions();
   physicsObjects.update();
+
+
+  // Manually do physics
+  updatePhysics();
 
   // Display world
   pushMatrix();
@@ -68,4 +73,16 @@ void keyPressed() {
 
 void keyReleased() {
   inputHandler.release(key);
+}
+
+void updatePhysics() {
+  Projectiles
+  println(frameCount + " " + projectiles.size());
+  // for (Projectile p : projectiles) {
+    // Check against each wall
+
+    // for (Barrier b : level.barrierList.getAll()) {
+
+    // }
+  // }  
 }

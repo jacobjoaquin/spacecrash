@@ -38,7 +38,7 @@ class Wall extends Barrier {
   }
 
   void init() {
-    physicsModel = new PhysicsFixedLine(p0, p1);
+    // physicsModel = new PhysicsFixedLine(p0, p1);
   }
 
   void display() {
@@ -72,57 +72,62 @@ class WallList<T> extends BarrierList {
   }
 }
 
-class DynamicWall extends Wall {
-  PVector position = new PVector(0, 0);
-  float angle = 0;
-  float scaleX = 1;
-  float scaleY = 1;
 
-  DynamicWall() {
-  }
+/*
+ * Experimental Dynamic Walls
+ */
 
-  DynamicWall(GLine gl) {
-    super(gl);
-  }
+// class DynamicWall extends Wall {
+//   PVector position = new PVector(0, 0);
+//   float angle = 0;
+//   float scaleX = 1;
+//   float scaleY = 1;
+
+//   DynamicWall() {
+//   }
+
+//   DynamicWall(GLine gl) {
+//     super(gl);
+//   }
   
- void update() {
-    angle += 0.01;
-  }
+//  void update() {
+//     angle += 0.01;
+//   }
 
-  void display() {
-    pushMatrix();
-    translate(position.x, position.y);
-    rotate(angle);
-    translate(scaleX, scaleY);
-    super.display();
-    popMatrix();
-  }
-}
+//   void display() {
+//     pushMatrix();
+//     translate(position.x, position.y);
+//     rotate(angle);
+//     translate(scaleX, scaleY);
+//     super.display();
+//     popMatrix();
+//   }
+// }
 
-class DynamicWallList extends WallList<DynamicWall> {
-  PVector position = new PVector(0, 0);
-  float angle = 0;
-  float scaleX = 1;
-  float scaleY = 1;
+// class DynamicWallList extends WallList<DynamicWall> {
+//   PVector position = new PVector(0, 0);
+//   float angle = 0;
+//   float scaleX = 1;
+//   float scaleY = 1;
   
-  DynamicWallList() {
-    super();
-  }
+//   DynamicWallList() {
+//     super();
+//   }
 
-  DynamicWallList(GLines glines) {
-    super(glines);
-  }
+//   DynamicWallList(GLines glines) {
+//     super(glines);
+//   }
 
- void update() {
-    angle += 0.01;
-  }
+//  void update() {
+//     angle += 0.01;
+//   }
 
-  void display() {
-    pushMatrix();
-    translate(position.x, position.y);
-    rotate(angle);
-    translate(scaleX, scaleY);
-    super.display();
-    popMatrix();
-  }
-}
+//   void display() {
+//     pushMatrix();
+//     translate(position.x, position.y);
+//     rotate(angle);
+//     translate(scaleX, scaleY);
+//     super.display();
+//     popMatrix();
+//   }
+// }
