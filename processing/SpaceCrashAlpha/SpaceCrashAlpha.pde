@@ -1,4 +1,4 @@
-int levelIndex = 2;
+int levelIndex = 1;
 
 Vst vst;
 Player player;
@@ -17,6 +17,7 @@ void setup() {
   frameRate(50);
   vst = new Vst(this, createSerial());
   vst.colorStroke = color(220, 220, 255);
+  vst.displayTransit = true;
   blendMode(ADD);
 
   physicsObjects = new PhysicsObjects();
@@ -29,8 +30,8 @@ void setup() {
   levelList = new LevelList();
   levelList.add(new LevelLineTest());
   levelList.add(new LevelRectangleTest());
-  levelList.add(new LevelGShapeTest());
-  levelList.add(new LevelDynamicTest());
+  // levelList.add(new LevelGShapeTest());
+  // levelList.add(new LevelDynamicTest());
   level = levelList.get(levelIndex);
 }
 
@@ -76,13 +77,16 @@ void keyReleased() {
 }
 
 void updatePhysics() {
-  Projectiles
-  println(frameCount + " " + projectiles.size());
-  // for (Projectile p : projectiles) {
-    // Check against each wall
-
-    // for (Barrier b : level.barrierList.getAll()) {
-
-    // }
-  // }  
+  // Projectiles
+  for (Projectile p : projectiles) {
+    for (Wall b : level.barrierList) {
+      if (line_line(p.physicsModel.position, p.physicsModel.lastPosition, b.gl.p0, b.gl.p1)) {
+        float [] v = line_line_p(p.physicsModel.position, p.physicsModel.lastPosition, b.gl.p0, b.gl.p1);
+        p.physicsModel.velocity.mult(-1);
+        p.physicsModel.position.set(v[0], v[1]);
+        p.physicsModel.lastPosition.set(p.physicsModel.position.copy());
+        p.physicsModel.position.add(p.physicsModel.velocity);
+      }
+    }
+  }  
 }

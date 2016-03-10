@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 /*
 Thoughts on creating barriers / walls:
 
@@ -13,20 +15,7 @@ What is a barrier?
   A list of multiple static and dynamic lines
 */
 
-class BarrierList<Barrier> extends DisplayableList {  
-}
-
-abstract class Barrier extends DisplayableBase {
-  GLine gl;
-
-  Barrier() {
-  }
-
-  Barrier(Barrier b) {
-  }
-}
-
-class Wall extends Barrier {
+class Wall extends DisplayableBase {
   PhysicsFixedLine physicsModel;
   private GLine gl;
   float brightness = 128;
@@ -49,7 +38,7 @@ class Wall extends Barrier {
   }
 }
 
-class WallList<T> extends BarrierList {
+class WallList extends DisplayableList<Wall> {
   WallList() {
   }
 
@@ -68,66 +57,6 @@ class WallList<T> extends BarrierList {
     for (GLine gl : glines) {
       wl.add(gl);
     }
-    add(wl);
+    addAll(wl);
   }
 }
-
-
-/*
- * Experimental Dynamic Walls
- */
-
-// class DynamicWall extends Wall {
-//   PVector position = new PVector(0, 0);
-//   float angle = 0;
-//   float scaleX = 1;
-//   float scaleY = 1;
-
-//   DynamicWall() {
-//   }
-
-//   DynamicWall(GLine gl) {
-//     super(gl);
-//   }
-  
-//  void update() {
-//     angle += 0.01;
-//   }
-
-//   void display() {
-//     pushMatrix();
-//     translate(position.x, position.y);
-//     rotate(angle);
-//     translate(scaleX, scaleY);
-//     super.display();
-//     popMatrix();
-//   }
-// }
-
-// class DynamicWallList extends WallList<DynamicWall> {
-//   PVector position = new PVector(0, 0);
-//   float angle = 0;
-//   float scaleX = 1;
-//   float scaleY = 1;
-  
-//   DynamicWallList() {
-//     super();
-//   }
-
-//   DynamicWallList(GLines glines) {
-//     super(glines);
-//   }
-
-//  void update() {
-//     angle += 0.01;
-//   }
-
-//   void display() {
-//     pushMatrix();
-//     translate(position.x, position.y);
-//     rotate(angle);
-//     translate(scaleX, scaleY);
-//     super.display();
-//     popMatrix();
-//   }
-// }

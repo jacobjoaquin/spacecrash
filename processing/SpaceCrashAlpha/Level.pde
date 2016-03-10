@@ -4,7 +4,7 @@ class LevelList extends DisplayableList<Level> {
 abstract class Level extends DisplayableBase {
   // Player
   // Enemies
-  BarrierList barrierList = new BarrierList();
+  WallList barrierList = new WallList();
 
   void update() {
     barrierList.update();
@@ -41,7 +41,7 @@ class LevelRectangleTest extends Level {
         rotate(a);
         translate((i - 2) * 50, 0);
         scale(map(i, 4, 16, 1, 3));
-        barrierList.add(new WallList(grect(0, 0, 50, 50)));
+        barrierList.add(grect(0, 0, 50, 50));
         popMatrix();
       }
     }
@@ -70,23 +70,23 @@ class LevelGShapeTest extends Level {
       float a = (i * 2) / (float) nSides * TAU;
       rotate(a);
       scale(1 + i * 2);
-      barrierList.add(new WallList(gs.get()));
+      barrierList.add(gs.get());
       popMatrix();
     }
   }
 }
 
-class LevelDynamicTest extends Level {
-  LevelDynamicTest() {
-    pushStyle();
-    rectMode(CENTER);
-    int nSides = 5;
-    for (int i = 0; i < nSides; i++) {
-      pushMatrix();
-      rotate(i / (float) nSides * TAU);
-      barrierList.add(new DynamicWallList(grect(150, 0, 50, 50)));
-      popMatrix();
-    }
-    popStyle();
-  }
-}
+// class LevelDynamicTest extends Level {
+//   LevelDynamicTest() {
+//     pushStyle();
+//     rectMode(CENTER);
+//     int nSides = 5;
+//     for (int i = 0; i < nSides; i++) {
+//       pushMatrix();
+//       rotate(i / (float) nSides * TAU);
+//       // barrierList.add(new DynamicWallList(grect(150, 0, 50, 50)));
+//       popMatrix();
+//     }
+//     popStyle();
+//   }
+// }
