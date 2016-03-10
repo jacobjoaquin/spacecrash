@@ -37,7 +37,7 @@ class Player extends Being {
   }
   
   void fire() {
-    Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20));
+    Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20).add(physicsModel.position));
     projectiles.add(p);
   }
 

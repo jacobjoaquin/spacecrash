@@ -6,7 +6,7 @@ class Projectiles extends DisplayableList<Projectile> {
 abstract class Projectile extends DisplayableBase {
   float velocityMagnitude = 10;
   float brightness = 255;
-  int framesLeft = 100;
+  int framesLeft = 50;
   Being owner;
   PointMass physicsModel;
   

@@ -17,7 +17,7 @@ void setup() {
   frameRate(50);
   vst = new Vst(this, createSerial());
   vst.colorStroke = color(220, 220, 255);
-  vst.displayTransit = true;
+  // vst.displayTransit = true;
   blendMode(ADD);
 
   physicsObjects = new PhysicsObjects();
@@ -58,8 +58,9 @@ void draw() {
   pushMatrix();
   translate(-player.physicsModel.position.x, -player.physicsModel.position.y); 
   level.display();
-  popMatrix();
   projectiles.display();
+  popMatrix();
+  // projectiles.display();
   player.display();
   popMatrix();
   
