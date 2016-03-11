@@ -79,24 +79,27 @@ void keyReleased() {
 
 void updatePhysics() {
   // Projectiles
+  float scatter = 0.1;
   for (Projectile p : projectiles) {
-    for (Wall b : level.barrierList) {
-      if (line_line(p.physicsModel.position, p.physicsModel.lastPosition, b.gl.p0, b.gl.p1)) {
-        float pAngle = atan2(p.physicsModel.lastPosition.y - p.physicsModel.position.y,
-          p.physicsModel.lastPosition.x - p.physicsModel.position.x);
-        float wallAngle = atan2(b.gl.p1.y - b.gl.p0.y, b.gl.p1.x - b.gl.p0.x);
-
-        PVector v = p.physicsModel.velocity.copy();
-        PVector n = PVector.fromAngle(wallAngle).rotate(HALF_PI);
-        PVector u = n.copy().mult(2 * PVector.dot(v, n));
-        PVector w = v.copy().sub(u);
-
-        float [] intersection = line_line_p(p.physicsModel.position, p.physicsModel.lastPosition, b.gl.p0, b.gl.p1);
-        p.physicsModel.velocity = w.copy().rotate(random(-0.1, 0.1));
+    for (Wall wall : level.barrierList) {
+      if (line_line(p.physicsModel.position, p.physicsModel.lastPosition, wall.gl.p0, wall.gl.p1)) {
+        PVector reflectionVector = getReflectionVector(p.physicsModel, wall);
+        float [] intersection = line_line_p(p.physicsModel.position, p.physicsModel.lastPosition, wall.gl.p0, wall.gl.p1);
+        p.physicsModel.velocity = reflectionVector.copy().rotate(random(-scatter, scatter));
         p.physicsModel.position.set(intersection[0], intersection[1]);
         p.physicsModel.lastPosition.set(p.physicsModel.position.copy());
         p.physicsModel.position.add(p.physicsModel.velocity);
       }
     }
-  }  
+  }
+}
+
+PVector getReflectionVector(PVector v, PVector n) {
+  PVector u = n.copy().mult(2 * PVector.dot(v, n));
+  return v.copy().sub(u);
+}
+
+PVector getReflectionVector(PointMass pm, Wall wall) {
+  float wallAngle = atan2(wall.gl.p1.y - wall.gl.p0.y, wall.gl.p1.x - wall.gl.p0.x);
+  return(getReflectionVector(pm.velocity, PVector.fromAngle(wallAngle + HALF_PI)));
 }

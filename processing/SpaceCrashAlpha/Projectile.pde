@@ -4,7 +4,7 @@ class Projectiles extends DisplayableList<Projectile> {
 
 // Base Projectile
 abstract class Projectile extends DisplayableBase {
-  float velocityMagnitude = 10;
+  float velocityMagnitude = 5;
   float brightness = 255;
   int framesLeft = 50;
   Being owner;
