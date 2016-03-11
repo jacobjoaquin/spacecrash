@@ -1,7 +1,7 @@
 // From Geometry 2D Cookbook @ Quarks Place
 // http://lagers.org.uk/how-to/ht-geom-01/index.html
 
-final float ACCY = 0.001;
+final float ACCY = 1;
 
 
 /**

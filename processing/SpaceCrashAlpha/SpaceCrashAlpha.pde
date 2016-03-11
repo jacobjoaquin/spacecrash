@@ -1,4 +1,4 @@
-int levelIndex = 1;
+int levelIndex = 0;
 
 Vst vst;
 Player player;
@@ -82,9 +82,18 @@ void updatePhysics() {
   for (Projectile p : projectiles) {
     for (Wall b : level.barrierList) {
       if (line_line(p.physicsModel.position, p.physicsModel.lastPosition, b.gl.p0, b.gl.p1)) {
-        float [] v = line_line_p(p.physicsModel.position, p.physicsModel.lastPosition, b.gl.p0, b.gl.p1);
-        p.physicsModel.velocity.mult(-1);
-        p.physicsModel.position.set(v[0], v[1]);
+        float pAngle = atan2(p.physicsModel.lastPosition.y - p.physicsModel.position.y,
+          p.physicsModel.lastPosition.x - p.physicsModel.position.x);
+        float wallAngle = atan2(b.gl.p1.y - b.gl.p0.y, b.gl.p1.x - b.gl.p0.x);
+
+        PVector v = p.physicsModel.velocity.copy();
+        PVector n = PVector.fromAngle(wallAngle).rotate(HALF_PI);
+        PVector u = n.copy().mult(2 * PVector.dot(v, n));
+        PVector w = v.copy().sub(u);
+
+        float [] intersection = line_line_p(p.physicsModel.position, p.physicsModel.lastPosition, b.gl.p0, b.gl.p1);
+        p.physicsModel.velocity = w.copy().rotate(random(-0.1, 0.1));
+        p.physicsModel.position.set(intersection[0], intersection[1]);
         p.physicsModel.lastPosition.set(p.physicsModel.position.copy());
         p.physicsModel.position.add(p.physicsModel.velocity);
       }
