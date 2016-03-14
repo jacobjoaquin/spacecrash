@@ -1,4 +1,4 @@
-int levelIndex = 0;
+int levelIndex = 1;
 
 Vst vst;
 Player player;
@@ -79,12 +79,12 @@ void keyReleased() {
 
 void updatePhysics() {
   // Projectiles
-  float scatter = 0.1;
+  float scatter = 0.05;
   for (Projectile p : projectiles) {
     for (Wall wall : level.barrierList) {
       if (line_line(p.physicsModel.position, p.physicsModel.lastPosition, wall.gl.p0, wall.gl.p1)) {
+        float[] intersection = line_line_p(p.physicsModel.position, p.physicsModel.lastPosition, wall.gl.p0, wall.gl.p1);
         PVector reflectionVector = getReflectionVector(p.physicsModel, wall);
-        float [] intersection = line_line_p(p.physicsModel.position, p.physicsModel.lastPosition, wall.gl.p0, wall.gl.p1);
         p.physicsModel.velocity = reflectionVector.copy().rotate(random(-scatter, scatter));
         p.physicsModel.position.set(intersection[0], intersection[1]);
         p.physicsModel.lastPosition.set(p.physicsModel.position.copy());
