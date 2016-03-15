@@ -109,7 +109,8 @@ void updatePhysics() {
         if (intersectionPoint.dist(p0) > intersectionPoint.dist(p1)) {
           offset = gl.p1;
         }
-        player.physicsModel.position.set(playerPosition.copy().sub(offset));
+        player.physicsModel.position.set(playerPosition.copy().sub(offset.copy().mult(0.5)));
+        player.disableThrustersFrames = 5;
         break;
       }      
     }    

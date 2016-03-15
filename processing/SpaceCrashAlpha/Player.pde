@@ -11,10 +11,13 @@ class Player extends Being {
   private float rotateAmount = 0.1;
   GLines shipBoundary = new GLines();
   GLines shipBoundaryScreen = new GLines();
+  int disableThrustersFrames = 0;
+  int fireRate = 8;
+  int nextFireFrames = 0;
 
   Player() {
     physicsModel = new PointMass(false);
-    physicsModel.setDrag(0.1);
+    physicsModel.setDrag(0.05);
     physicsModel.mass = 1.5;
     init();
   }
@@ -43,17 +46,21 @@ class Player extends Being {
     if (inputHandler.isPressed(Keys.ROTATE_RIGHT)) {
       angle += rotateAmount;
     }
-    if (inputHandler.isPressed(Keys.FORWARD)) {
-      PVector a = PVector.fromAngle(angle);
-      physicsModel.applyForce(a);
+    if (--disableThrustersFrames <= 0) {
+      if (inputHandler.isPressed(Keys.FORWARD)) {
+        PVector a = PVector.fromAngle(angle);
+        physicsModel.applyForce(a);
+      }
+      if (inputHandler.isPressed(Keys.BACKWARD)) {
+        PVector a = PVector.fromAngle(angle - PI);
+        physicsModel.applyForce(a);
+      }
     }
-    if (inputHandler.isPressed(Keys.BACKWARD)) {
-      PVector a = PVector.fromAngle(angle - PI);
-      physicsModel.applyForce(a);
-    }
- 
-    if (inputHandler.isPressed(Keys.FIRE)) {
-      fire();
+    if (nextFireFrames-- <= 0) {
+      if (inputHandler.isPressed(Keys.FIRE)) {
+        fire();
+        nextFireFrames = fireRate;
+      }
     }
 
     updateshipBoundaryScreen();
