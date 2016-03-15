@@ -48,7 +48,6 @@ void draw() {
   // physicsObjects.checkCollisions();
   physicsObjects.update();
 
-
   // Manually do physics
   updatePhysics();
 
@@ -78,7 +77,7 @@ void keyReleased() {
 }
 
 void updatePhysics() {
-  // Projectiles
+  // Projectiles vs Walls
   float scatter = 0.05;
   for (Projectile p : projectiles) {
     for (Wall wall : level.barrierList) {
@@ -91,5 +90,28 @@ void updatePhysics() {
         p.physicsModel.position.add(p.physicsModel.velocity);
       }
     }
+  }
+
+  // Player vs Walls
+  // TODO: Smoother bounce
+  PVector playerPosition = player.physicsModel.position.copy();
+  for (Wall wall : level.barrierList) {
+    for (GLine gl : player.shipBoundaryScreen) {
+      PVector p0 = playerPosition.copy().add(gl.p0);
+      PVector p1 = playerPosition.copy().add(gl.p1);
+      if (line_line(wall.gl.p0, wall.gl.p1, p0, p1)) {
+        float[] intersection = line_line_p(wall.gl.p0, wall.gl.p1, p0, p1);
+        PVector intersectionPoint = new PVector(intersection[0], intersection[1]);
+        float wallAngle = atan2(wall.gl.p1.y - wall.gl.p0.y, wall.gl.p1.x - wall.gl.p0.x);
+        PVector reflectionVector = getReflectionVector(player.physicsModel.velocity, PVector.fromAngle(wallAngle + HALF_PI));
+        player.physicsModel.velocity = reflectionVector.copy();
+        PVector offset = gl.p0;
+        if (intersectionPoint.dist(p0) > intersectionPoint.dist(p1)) {
+          offset = gl.p1;
+        }
+        player.physicsModel.position.set(playerPosition.copy().sub(offset));
+        break;
+      }      
+    }    
   }
 }

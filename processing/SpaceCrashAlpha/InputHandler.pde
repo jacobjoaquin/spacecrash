@@ -20,11 +20,16 @@ class InputHandler {
     removeQueue = new HashSet<Keys>();
     active = new HashSet<Keys>();
     keyMap = new HashMap<Character, Keys>();
+
+    // Keyboard layout
     keyMap.put('w', Keys.FORWARD);
     keyMap.put('a', Keys.ROTATE_LEFT);
     keyMap.put('s', Keys.BACKWARD);
     keyMap.put('d', Keys.ROTATE_RIGHT);
     keyMap.put(' ', Keys.FIRE);
+
+    // Arcade panel layout
+    keyMap.put('z', Keys.FIRE);
   }
 
   void update() {

@@ -3,7 +3,7 @@
 
 final float ACCY = 1;
 
-
+// TODO: Why is the "if" necessary? If it isn't, lose it.
 /**
  * See if two finite lines intersect.
  * [x0, y0]-[x1, y1] start and end of the first line
