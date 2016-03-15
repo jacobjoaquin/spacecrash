@@ -39,14 +39,11 @@ void draw() {
   player.update();
   projectiles.update();
   enemy.update();
-
   physicsObjects.update();
 
   // Display world
   pushMatrix();
-  if(frameCount % 30 == 0) {
-  enemy.display();
-  }
+ 
   translate(width / 2.0, height / 2.0);
   pushMatrix();
   translate(-player.physicsModel.position.x, -player.physicsModel.position.y); 
@@ -54,7 +51,11 @@ void draw() {
   popMatrix();
   projectiles.display();
   player.display();
-  
+
+  popMatrix();
+  pushMatrix();
+  translate(-enemy.physicsModel.position.x, -enemy.physicsModel.position.y); 
+  enemy.display();
   popMatrix();
 
   // Show on screen and handle input releases

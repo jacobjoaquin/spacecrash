@@ -2,11 +2,11 @@ class Enemies extends Being {
   private float rotateAmount = 0.1; 
   PVector acceleration = new PVector (0.4, 0.4);
   
-  Enemies() {
+  Enemies(PVector enemyStartPosition) {
     physicsModel = new PointMass(false);
     physicsModel.setDrag(0.5);
     physicsModel.setVelocity(2, 2);
-    physicsModel.setPosition(50 + frameCount, 50 + frameCount);
+    physicsModel.setPosition(enemyStartPosition);
   }
   
  void update() {
