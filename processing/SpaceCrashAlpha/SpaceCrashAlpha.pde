@@ -9,7 +9,8 @@ PhysicsObjects physicsObjects;
 LevelList levelList;
 
 void settings() {
-  size(450, 550, P2D);
+  // size(450, 550, P2D);
+  size(500, 500, P2D);
   pixelDensity(displayDensity());
 }
 
@@ -30,7 +31,7 @@ void setup() {
   levelList = new LevelList();
   levelList.add(new LevelLineTest());
   levelList.add(new LevelRectangleTest());
-  // levelList.add(new LevelGShapeTest());
+  levelList.add(new LevelGShapeTest());
   // levelList.add(new LevelDynamicTest());
   level = levelList.get(levelIndex);
 }

@@ -94,7 +94,5 @@ class Player extends Being {
       line(gl.p0, gl.p1);
     }
     popStyle();
-
-    
   }
 }
