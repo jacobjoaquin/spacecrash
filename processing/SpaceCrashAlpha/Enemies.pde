@@ -1,6 +1,6 @@
 class Enemies extends Being {
-  private float rotateAmount = 0.1; 
-  PVector acceleration = new PVector (0.4, 0.4);
+  private float rotateAmount = 0.001; 
+  PVector acceleration = new PVector (2, 2);
   
   Enemies(PVector enemyStartPosition) {
     physicsModel = new PointMass(false);
@@ -14,7 +14,7 @@ class Enemies extends Being {
    PVector a = PVector.fromAngle(angle);
    physicsModel.applyForce(a);
    
-     // physicsModel.velocity.add(acceleration);
+   physicsModel.velocity.add(acceleration);
  }
  
  void display() {
