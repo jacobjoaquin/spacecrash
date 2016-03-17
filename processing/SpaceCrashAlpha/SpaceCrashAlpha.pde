@@ -1,6 +1,4 @@
 import processing.sound.*;
-SoundFile soundFire;
-
 int levelIndex = 3;
 
 Vst vst;
@@ -10,6 +8,7 @@ Level level;
 Projectiles projectiles;
 PhysicsObjects physicsObjects;
 LevelList levelList;
+SoundPlayer soundPlayer;
 
 void settings() {
   // size(450, 550, P2D);
@@ -24,7 +23,7 @@ void setup() {
   // vst.displayTransit = true;
   blendMode(ADD);
 
-  soundFire = new SoundFile(this, "zap.wav");
+  soundPlayer = new SoundPlayer(this);
 
   physicsObjects = new PhysicsObjects();
 
