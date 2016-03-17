@@ -82,6 +82,8 @@ class Player extends Being {
     // TODO: mult(20) is midpoint to tip of player.
     Projectile p = new PlayerLaser(this, PVector.fromAngle(angle).mult(20).add(physicsModel.position));
     projectiles.add(p);
+    soundFire.play();
+
   }
 
   void display() {

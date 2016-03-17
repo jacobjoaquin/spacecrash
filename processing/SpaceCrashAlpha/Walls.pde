@@ -17,13 +17,14 @@ What is a barrier?
 
 class Wall extends DisplayableBase {
   PhysicsFixedLine physicsModel;
-  private GLine gl;
+  GLine gl;
   float brightness = 128;
   Wall() {
   }
   
   Wall(GLine gl) {
    this.gl = gl;
+   init();
   }
 
   void init() {
@@ -58,5 +59,29 @@ class WallList extends DisplayableList<Wall> {
       wl.add(gl);
     }
     addAll(wl);
+  }
+}
+
+class MovingWall extends Wall {
+  GLine glineBase;
+
+  MovingWall(GLine gl) {
+    super(gl);
+  }
+
+  void init() {
+    glineBase = gl.copy();
+  }
+
+  void update() {
+    // gl = glineBase.copy();
+    PVector p0 =  PVector.fromAngle(atan2(glineBase.p1.y - glineBase.p0.y, glineBase.p1.x - glineBase.p0.x)
+      + frameCount / 300.0 * TAU);
+    PVector p1 = p0.copy();
+    p1.mult(glineBase.p0.dist(glineBase.p1));
+    p0.add(glineBase.p0);
+    p1.add(glineBase.p0);
+    gl.p0 = p0;
+    gl.p1 = p1;
   }
 }

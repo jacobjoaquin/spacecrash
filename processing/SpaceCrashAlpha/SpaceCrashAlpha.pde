@@ -1,4 +1,7 @@
-int levelIndex = 1;
+import processing.sound.*;
+SoundFile soundFire;
+
+int levelIndex = 3;
 
 Vst vst;
 Player player;
@@ -21,6 +24,8 @@ void setup() {
   // vst.displayTransit = true;
   blendMode(ADD);
 
+  soundFire = new SoundFile(this, "zap.wav");
+
   physicsObjects = new PhysicsObjects();
 
   player = new Player();
@@ -32,7 +37,7 @@ void setup() {
   levelList.add(new LevelLineTest());
   levelList.add(new LevelRectangleTest());
   levelList.add(new LevelGShapeTest());
-  // levelList.add(new LevelDynamicTest());
+  levelList.add(new MovingWallsTest());
   level = levelList.get(levelIndex);
 }
 

@@ -8,6 +8,10 @@ class GLine extends DisplayableBase {
     this.p0 = new PVector(screenX(p0.x, p0.y), screenY(p0.x, p0.y));
     this.p1 = new PVector(screenX(p1.x, p1.y), screenY(p1.x, p1.y));
   }
+
+  GLine copy() {
+    return new GLine(p0.copy(), p1.copy());
+  }
 }
 
 GLine gline(PVector p0, PVector p1) {

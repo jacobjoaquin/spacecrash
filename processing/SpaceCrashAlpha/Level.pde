@@ -76,17 +76,16 @@ class LevelGShapeTest extends Level {
   }
 }
 
-// class LevelDynamicTest extends Level {
-//   LevelDynamicTest() {
-//     pushStyle();
-//     rectMode(CENTER);
-//     int nSides = 5;
-//     for (int i = 0; i < nSides; i++) {
-//       pushMatrix();
-//       rotate(i / (float) nSides * TAU);
-//       // barrierList.add(new DynamicWallList(grect(150, 0, 50, 50)));
-//       popMatrix();
-//     }
-//     popStyle();
-//   }
-// }
+class MovingWallsTest extends Level {
+  MovingWallsTest() {
+    // Randomly generate WallList
+    int nWallList = 200;
+    for (int i = 0; i < nWallList; i++) {
+      PVector p0 = new PVector(random(-2000, 2000), random(-2000, 2000));
+      PVector p1 = PVector.fromAngle(random(TAU));
+      p1.mult(random(25, 300));
+      p1.add(p0);
+      barrierList.add(new MovingWall(gline(p0, p1)));
+    }
+  }
+}
