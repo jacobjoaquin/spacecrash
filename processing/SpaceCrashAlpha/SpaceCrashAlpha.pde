@@ -1,5 +1,5 @@
 import processing.sound.*;
-int levelIndex = 3;
+int levelIndex = 1;
 
 Vst vst;
 Player player;

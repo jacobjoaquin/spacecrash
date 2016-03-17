@@ -48,10 +48,12 @@ abstract class Projectile extends DisplayableBase {
 // Player laser
 class PlayerLaser extends Projectile {
   PlayerLaser(Being owner) {
-   super(owner);
+    super(owner);
   }
 
   PlayerLaser(Being owner, PVector position) {
-   super(owner, position);
+    super(owner, position);
+    PVector velocity = PVector.fromAngle(owner.angle).mult(velocityMagnitude);
+    physicsModel.setVelocity(velocity.add(owner.physicsModel.velocity));
   }
 }
